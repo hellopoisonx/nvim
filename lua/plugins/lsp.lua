@@ -18,7 +18,9 @@ return {
         end
     }, {
         "hrsh7th/nvim-cmp",
-        lazy = false,
+        -- lazy = true,
+        -- event = InsertEnter,
+        -- lazy = false,
         -- load cmp on InsertEnter
         -- these dependencies will only be loaded when cmp loads
         -- dependencies are always lazy-loaded unless specified otherwise
@@ -47,7 +49,8 @@ return {
                     ['<CR>'] = cmp.mapping.confirm({select = true}) -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 }),
                 sources = cmp.config.sources({
-                    {name = 'nvim_lsp'}, {name = 'nvim_lua'}, {name = 'luasnip'}, -- For luasnip users.
+                    {name = 'nvim_lsp'}, {name = 'nvim_lua'},
+                    {name = 'pyright'}, {name = 'clangd'}, {name = 'luasnip'}, -- For luasnip users.
                     {name = 'gopls'}
                 }, {{name = 'buffer'}, {name = 'path'}, {name = 'cmdline'}})
             })
@@ -70,13 +73,19 @@ return {
             })
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
             local on_attach = function(client, bufnr)
-                local function buf_set_keymap(...)
-                    vim.api.nvim_buf_set_keymap(bufnr, ...)
-                end
-                local function buf_set_option(...)
-                    vim.api.nvim_buf_set_option(bufnr, ...)
-                end
-                buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+                local bufopts = {noremap = true, silent = true, buffer = bufnr}
+                -- vim.keymap.set('n', '<C-o>', function()
+                --     vim.lsp.document_symbols {symbol_width = 0.8}
+                -- end, bufopts) -- 打开当前文件的符号
+                vim.keymap.set('n', 'gd',
+                               function()
+                    vim.lsp.buf.definition()
+                end, bufopts) -- 跳转定义
+                vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts) -- 模拟鼠标悬停
+                vim.keymap.set('n', 'gr', function()
+                    vim.lsp.buf.references {fname_width = 0.4}
+                end, bufopts) -- 查找引用
+                vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, bufopts) -- 重命名
             end
             -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
             require('lspconfig')['gopls'].setup {
@@ -92,15 +101,27 @@ return {
                 },
                 init_options = {usePlaceholders = true}
             }
+            require('lspconfig')['bashls'].setup {
+                capabilities = capabilities,
+                on_attach = on_attach
+            }
+            require('lspconfig')['clangd'].setup {
+                capabilities = capabilities,
+                on_attach = on_attach
+            }
             require("lspconfig")['lua_ls'].setup {
                 on_attach = on_attach,
                 capabilities = capabilities
             }
+            require("lspconfig")['pylsp'].setup {
+                on_attach = on_attach,
+                capabilities = capabilities
+            }
         end
-    },
-    {
+    }, {
         "numToStr/Comment.nvim",
-        config = function() require("Comment").setup() end
+        config = function() require("Comment").setup() end,
+        event = InsertEnter
     }, {
         "windwp/nvim-autopairs",
         config = function()
@@ -128,7 +149,7 @@ return {
         end
     }, {
         "L3MON4D3/LuaSnip",
-        lazy = false,
+        -- lazy = false,
         -- follow latest release.
         version = "<CurrentMajor>.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
         -- install jsregexp (optional!).

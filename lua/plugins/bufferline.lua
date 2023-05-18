@@ -6,12 +6,12 @@ return {
         keys = {
             {
                 "<C-l>",
-                "<cmd>BufferLineMoveNext<cr>",
+                "<cmd>BufferLineCycleNext<cr>",
                 desc = "move to next buffer"
             },
             {
                 "<C-h>",
-                "<cmd>BufferLineMovePrev<cr>",
+                "<cmd>BufferLineCyclePrev<cr>",
                 desc = "move to previous buffer"
             },
             {
