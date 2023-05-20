@@ -2,7 +2,8 @@ local vim = vim
 return {
 	{
 		"hrsh7th/cmp-nvim-lua",
-        lazy = false,
+        event = "InsertEnter",
+        enabled = true,
 	},
 	{ -- luasnip
 		"L3MON4D3/LuaSnip",
