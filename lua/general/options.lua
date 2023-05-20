@@ -1,3 +1,4 @@
+local vim = vim
 -- 指定utf-8编码
 vim.g.encoding = "utf-8" 
 vim.g.fileencoding = "utf-8"

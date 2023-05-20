@@ -1,4 +1,9 @@
+local vim = vim
 return {
+	{
+		"hrsh7th/cmp-nvim-lua",
+        lazy = false,
+	},
 	{ -- luasnip
 		"L3MON4D3/LuaSnip",
 		version = "1.2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
@@ -72,8 +77,8 @@ return {
 			"hrsh7th/cmp-cmdline",
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
-			"hrsh7th/cmp-nvim-lua",
 			"onsails/lspkind.nvim",
+			"lukas-reineke/cmp-rg",
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -125,11 +130,20 @@ return {
 				mapping = cmp.mapping.preset.insert({
 					["<C-k>"] = cmp.mapping.select_prev_item(),
 					["<C-j>"] = cmp.mapping.select_next_item(),
-					["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
-					["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
+					["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+					["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
 					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+				}),
+				sources = cmp.config.sources({
+					{ name = "rg" },
+					{ name = "nvim_lsp" }, -- {name = 'vsnip'} -- For vsnip users.
+					{ name = "nvim_lua" },
+					{ name = "path" }, -- For luasnip users.
+					-- { name = 'ultisnips' }, -- For ultisnips users.
+					{ name = "luasnip" }, -- For snippy users.
+					{ name = "buffer" },
 				}),
 				formatting = {
 					format = lspkind.cmp_format({
@@ -139,6 +153,7 @@ return {
 						format = function(entry, vim_item)
 							vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 							vim_item.menu = ({
+								rg = "[rg]",
 								nvim_lsp = "[lsp]",
 								nvim_lua = "[nvim_lua]",
 								luasnip = "[luasnip]",
@@ -150,14 +165,6 @@ return {
 						end,
 					}),
 				},
-				sources = cmp.config.sources({
-					{ name = "nvim_lsp" }, -- {name = 'vsnip'} -- For vsnip users.
-					{ name = "nvim_lua" },
-					{ name = "path" }, -- For luasnip users.
-					-- { name = 'ultisnips' }, -- For ultisnips users.
-					{ name = "luasnip" }, -- For snippy users.
-					{ name = "buffer" },
-				}),
 			})
 
 			-- Set configuration for specific filetype.
@@ -183,14 +190,14 @@ return {
 			})
 		end,
 	},
-    {
-        "ray-x/lsp_signature.nvim",
-        event = "InsertEnter",
-        enabled = false,
-        config = function ()
-            require("lsp_signature").setup()
-        end
-    },
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "InsertEnter",
+		enabled = true,
+		config = function()
+			require("lsp_signature").setup()
+		end,
+	},
 	{ -- comment
 		"numToStr/Comment.nvim",
 		event = "InsertEnter",
