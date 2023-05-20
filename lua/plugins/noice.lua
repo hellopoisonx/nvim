@@ -1,3 +1,4 @@
+local vim = vim
 return {
 	{
 		"folke/noice.nvim",
@@ -8,6 +9,7 @@ return {
 			"rcarriga/nvim-notify",
 		},
 		config = function()
+            -- config.lsp.signature = false
 			require("noice").setup({
 				{
 					cmdline = {
