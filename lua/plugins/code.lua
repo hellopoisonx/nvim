@@ -1,9 +1,14 @@
 local vim = vim
 return {
+	-- {
+	-- 	"hrsh7th/cmp-nvim-lua",
+	-- 	event = "InsertEnter",
+	-- 	enabled = false,
+	-- },
 	{
-		"hrsh7th/cmp-nvim-lua",
-        event = "InsertEnter",
-        enabled = true,
+		"folke/neodev.nvim",
+		event = "InsertEnter",
+		enbaled = true,
 	},
 	{ -- luasnip
 		"L3MON4D3/LuaSnip",
@@ -15,6 +20,7 @@ return {
 		-- event = "InsertEnter",
 		-- enabled = true,
 		config = function()
+			require("neodev").setup({})
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local function on_attach(client, bufnr)
 				local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -28,7 +34,7 @@ return {
 				vim.keymap.set("n", "gr", function()
 					vim.lsp.buf.references({ fname_width = 0.4 })
 				end, bufopts) -- 查找引用
-				vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, bufopts) -- 重命名
+				vim.keymap.set("n", "<F3>", vim.lsp.buf.rename, bufopts) -- 重命名
 			end
 			-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 			require("lspconfig")["clangd"].setup({
@@ -38,6 +44,13 @@ return {
 			require("lspconfig")["lua_ls"].setup({
 				capabilities = capabilities,
 				on_attach = on_attach,
+				settings = {
+					Lua = {
+						completion = {
+							callSnippet = "Replace",
+						},
+					},
+				},
 			})
 			require("lspconfig")["bashls"].setup({
 				capabilities = capabilities,
@@ -138,6 +151,7 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 				}),
 				sources = cmp.config.sources({
+					{ name = "orgmode" },
 					{ name = "rg" },
 					{ name = "nvim_lsp" }, -- {name = 'vsnip'} -- For vsnip users.
 					{ name = "nvim_lua" },
@@ -154,6 +168,7 @@ return {
 						format = function(entry, vim_item)
 							vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 							vim_item.menu = ({
+                                orgmode = "[ORG]",
 								rg = "[rg]",
 								nvim_lsp = "[lsp]",
 								nvim_lua = "[nvim_lua]",

@@ -2,10 +2,11 @@ return {
     {
         "nvim-treesitter/nvim-treesitter", 
         build = ":TSUpdate",
+        event = "VeryLazy",
         dependencies = "p00f/nvim-ts-rainbow",
         config = function() 
             require("nvim-treesitter.configs").setup({
-                ensure_installed = {"c", "cpp", "lua", "go", "python"},
+                ensure_installed = {"c", "cpp", "lua", "go", "python", "org"},
                 rainbow = {
                     enable = true,
                     extended_mode = true,
@@ -16,8 +17,8 @@ return {
                 },
                 highlight = {
                     enable = true,
-                    additional_vim_regex_highlighting = false,
-                }
+                    additional_vim_regex_highlighting = {"org"},
+                },
             })
         end
     },

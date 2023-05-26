@@ -9,6 +9,8 @@ local opt = {noremap = true, silent = true}
 map("n", "Y", '"+y', opt)
 map("n", "P", '"+p', opt)
 map("v", "Y", '"+y', opt)
+-- cancel highlight
+map("n", "c/", "<cmd>noh<cr>", opt)
 -- esc
 map("i", "jj", "<ESC>", opt)
 map("c", "<C-[>", "<ESC>", opt)
