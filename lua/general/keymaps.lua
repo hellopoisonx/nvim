@@ -44,6 +44,8 @@ map("v", "K", ":move '<-2<CR>gv-gv", opt)
 map("v", "p", '"_dP', opt)
 -- Lazy
 map("n", "<leader>l", "<cmd>Lazy<cr>", opt)
+-- clear all
+map("n", "<leader>c", "ggVGd", opt)
 -- plugin
 -- tab
 -- map("n", "<C-n>", ":tabe<CR>", opt)

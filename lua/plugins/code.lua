@@ -60,6 +60,11 @@ return {
 				capabilities = capabilities,
 				on_attach = on_attach,
 			})
+			-- powershell
+			require("lspconfig")["powershell_es"].setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
 			-- GoLang
 			require("lspconfig")["gopls"].setup({
 				cmd = { "gopls" },
@@ -168,7 +173,7 @@ return {
 						format = function(entry, vim_item)
 							vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 							vim_item.menu = ({
-                                orgmode = "[ORG]",
+								orgmode = "[ORG]",
 								rg = "[rg]",
 								nvim_lsp = "[lsp]",
 								nvim_lua = "[nvim_lua]",
