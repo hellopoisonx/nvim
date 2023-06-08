@@ -22,19 +22,15 @@ return {
 		config = function()
 			require("neodev").setup({})
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            local keymap = vim.keymap.set
 			local function on_attach(client, bufnr)
-				local bufopts = { noremap = true, silent = true, buffer = bufnr }
-				-- vim.keymap.set('n', '<C-o>', function()
-				--     vim.lsp.document_symbols {symbol_width = 0.8}
-				-- end, bufopts) -- 打开当前文件的符号
-				vim.keymap.set("n", "gd", function()
-					vim.lsp.buf.definition()
-				end, bufopts) -- 跳转定义
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts) -- 模拟鼠标悬停
-				vim.keymap.set("n", "gr", function()
-					vim.lsp.buf.references({ fname_width = 0.4 })
-				end, bufopts) -- 查找引用
-				vim.keymap.set("n", "<F3>", vim.lsp.buf.rename, bufopts) -- 重命名
+                keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>") -- 跳转定义
+                keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>") -- 模拟鼠标悬停
+                keymap("n", "KK", "<cmd>Lspsaga hover_doc ++keep<CR>") -- 模拟鼠标悬停
+                keymap("n", "gr", "<cmd>Lspsaga rename<CR>") -- 查找引用
+                keymap({"n", "v"}, "<leader>a", "<cmd>Lspsaga code_action<CR>")
+                keymap("n", "gt", "<cmd>Lspsaga goto_type_definition<CR>")
+                keymap("n","<leader>o", "<cmd>Lspsaga outline<CR>")
 			end
 			-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 			require("lspconfig")["clangd"].setup({
@@ -72,6 +68,7 @@ return {
 				capabilities = capabilities,
 				settings = {
 					gopls = {
+                        completeUnimported = true,
 						experimentalPostfixCompletions = true,
 						analyses = {
 							unusedparams = true,
@@ -149,8 +146,6 @@ return {
 				mapping = cmp.mapping.preset.insert({
 					["<C-k>"] = cmp.mapping.select_prev_item(),
 					["<C-j>"] = cmp.mapping.select_next_item(),
-					["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-					["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
 					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.

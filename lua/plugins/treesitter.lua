@@ -2,11 +2,11 @@ return {
     {
         "nvim-treesitter/nvim-treesitter", 
         build = ":TSUpdate",
-        event = "VeryLazy",
+        lazy = false,
         dependencies = "p00f/nvim-ts-rainbow",
         config = function() 
             require("nvim-treesitter.configs").setup({
-                ensure_installed = {"c", "cpp", "lua", "go", "python", "org"},
+                ensure_installed = {"c", "cpp", "lua", "go", "python", "org", "markdown", "markdown_inline"},
                 rainbow = {
                     enable = true,
                     extended_mode = true,
