@@ -1,6 +1,7 @@
 return {
     "glepnir/lspsaga.nvim",
-    event = "LspAttach",
+    lazy = true,
+    event = "VeryLazy",
     config = function()
         require("lspsaga").setup({
 

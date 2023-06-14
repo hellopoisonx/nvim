@@ -3,6 +3,7 @@ return {
 	{
 		"folke/noice.nvim",
 		lazy = false,
+        enabled = true,
 		dependencies = {
 			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 			"MunifTanjim/nui.nvim",

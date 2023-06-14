@@ -7,7 +7,7 @@ return {
 	-- },
 	{
 		"folke/neodev.nvim",
-		event = "InsertEnter",
+		event = "VeryLazy",
 		enbaled = true,
 	},
 	{ -- luasnip
@@ -17,8 +17,7 @@ return {
 	},
 	{ -- lsp设置
 		"hrsh7th/cmp-nvim-lsp",
-		-- event = "InsertEnter",
-		-- enabled = true,
+		enabled = true,
 		config = function()
 			require("neodev").setup({})
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -216,7 +215,7 @@ return {
 	},
 	{ -- comment
 		"numToStr/Comment.nvim",
-		event = "InsertEnter",
+		event = "VeryLazy",
 		enabled = true,
 		config = function()
 			require("Comment").setup()

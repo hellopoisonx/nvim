@@ -40,6 +40,7 @@
         "${3rd}/luassert/library",
         "${3rd}/luv/library",
         "${3rd}/luv/library",
+        "${3rd}/luv/library",
         "${3rd}/luv/library"
     ]
 }

@@ -8,7 +8,10 @@ return {
                 overrides = {
                     extensions = {
                         h = "cpp",
-                        org = "org"
+                        org = "org",
+                        py = "py",
+                        lua = "lua",
+                        sh = "sh",
                     },
                 }
             })
