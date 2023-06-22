@@ -21,17 +21,16 @@ return {
 		config = function()
 			require("neodev").setup({})
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            local keymap = vim.keymap.set
+			local keymap = vim.keymap.set
 			local function on_attach(client, bufnr)
-                keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>") -- 跳转定义
-                keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>") -- 模拟鼠标悬停
-                keymap("n", "KK", "<cmd>Lspsaga hover_doc ++keep<CR>") -- 模拟鼠标悬停
-                keymap("n", "gr", "<cmd>Lspsaga rename<CR>") -- 查找引用
-                keymap({"n", "v"}, "<leader>a", "<cmd>Lspsaga code_action<CR>")
-                keymap("n", "gt", "<cmd>Lspsaga goto_type_definition<CR>")
-                keymap("n","<leader>o", "<cmd>Lspsaga outline<CR>")
+				keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>") -- 跳转定义
+				keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>") -- 模拟鼠标悬停
+				keymap("n", "KK", "<cmd>Lspsaga hover_doc ++keep<CR>") -- 模拟鼠标悬停
+				keymap("n", "gr", "<cmd>Lspsaga rename<CR>") -- 查找引用
+				keymap({ "n", "v" }, "<leader>a", "<cmd>Lspsaga code_action<CR>")
+				keymap("n", "<cmd>Lspsaga goto_type_definition<CR>", "gt")
+				keymap("n", "<leader>o", "<cmd>Lspsaga outline<CR>")
 			end
-			-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 			require("lspconfig")["clangd"].setup({
 				capabilities = capabilities,
 				on_attach = on_attach,
@@ -47,16 +46,7 @@ return {
 					},
 				},
 			})
-			require("lspconfig")["bashls"].setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-			})
 			require("lspconfig")["pyright"].setup({
-				capabilities = capabilities,
-				on_attach = on_attach,
-			})
-			-- powershell
-			require("lspconfig")["powershell_es"].setup({
 				capabilities = capabilities,
 				on_attach = on_attach,
 			})
@@ -67,7 +57,7 @@ return {
 				capabilities = capabilities,
 				settings = {
 					gopls = {
-                        completeUnimported = true,
+						completeUnimported = true,
 						experimentalPostfixCompletions = true,
 						analyses = {
 							unusedparams = true,
@@ -79,6 +69,11 @@ return {
 				init_options = {
 					usePlaceholders = true,
 				},
+			})
+			-- html
+			require("lspconfig")["jsonls"].setup({
+				capabilities = capabilities,
+				on_attach = on_attach,
 			})
 		end,
 	},
@@ -205,45 +200,12 @@ return {
 			})
 		end,
 	},
-	{
-		"ray-x/lsp_signature.nvim",
-		-- event = "InsertEnter",
-		enabled = false,
-		config = function()
-			require("lsp_signature").setup()
-		end,
-	},
 	{ -- comment
 		"numToStr/Comment.nvim",
 		event = "VeryLazy",
 		enabled = true,
 		config = function()
 			require("Comment").setup()
-		end,
-	},
-	{ -- autopairs
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		enabled = true,
-		config = function()
-			local npairs = require("nvim-autopairs")
-			local Rule = require("nvim-autopairs.rule")
-
-			npairs.setup({
-				check_ts = true,
-				ts_config = {
-					lua = { "string" }, -- it will not add a pair on that treesitter node
-					javascript = { "template_string" },
-					java = false, -- don't check treesitter on java
-				},
-			})
-
-			local ts_conds = require("nvim-autopairs.ts-conds")
-			-- press % => %% only while inside a comment or string
-			npairs.add_rules({
-				Rule("%", "%", "lua"):with_pair(ts_conds.is_ts_node({ "string", "comment" })),
-				Rule("$", "$", "lua"):with_pair(ts_conds.is_not_ts_node({ "function" })),
-			})
 		end,
 	},
 }

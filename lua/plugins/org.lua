@@ -1,8 +1,8 @@
 return {
 	{
 		"nvim-orgmode/orgmode",
-        lazy = true,
-        event = "VeryLazy",
+        lazy = false,
+        -- event = "VeryLazy",
 		dependencies = {
 			"akinsho/org-bullets.nvim",
             "lukas-reineke/headlines.nvim",

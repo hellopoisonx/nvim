@@ -33,6 +33,7 @@ return {
 					lualine_y = {},
 					lualine_z = {},
 				},
+				extensions = { "neo-tree", "lazy" },
 			})
 		end,
 	},
