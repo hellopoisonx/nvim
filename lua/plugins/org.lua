@@ -6,6 +6,7 @@ return {
 		dependencies = {
 			"akinsho/org-bullets.nvim",
             "lukas-reineke/headlines.nvim",
+            'nvim-treesitter/nvim-treesitter', lazy = false,
 		},
 		config = function()
 			require("orgmode").setup_ts_grammar()
