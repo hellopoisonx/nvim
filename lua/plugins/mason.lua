@@ -1,7 +1,7 @@
 return {
 	{
 		"williamboman/mason.nvim",
-        lazy = false,
+        lazy = true,
 		dependencies = {
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
@@ -26,7 +26,8 @@ return {
                 ensure_installed = {
                     "lua_ls",
                     "gopls",
-                    "clangd"
+                    "clangd",
+                    "pyright",
                 }
             })
 		end,

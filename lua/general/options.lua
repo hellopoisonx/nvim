@@ -41,6 +41,8 @@ vim.o.cmdheight = 2
 -- 当文件被外部程序修改时，自动加载
 vim.o.autoread = true
 vim.bo.autoread = true
+-- 当前行高亮
+vim.opt.cursorline = false
 -- 折叠
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -68,7 +70,7 @@ vim.o.splitright = true
 -- 自动补全不自动选中
 --vim.g.completeopt = "menu,menuone,noselect,noinsert"
 -- 样式
-vim.o.background = "dark"
+vim.o.background = "light"
 vim.o.termguicolors = true
 vim.opt.termguicolors = true
 -- 不可见字符的显示，这里只把空格显示为一个点

@@ -6,6 +6,7 @@ local opt = { noremap = true, silent = true }
 -- 取消 s 默认功能
 -- map("n", "s", "", opt)
 -- use system clipboard
+map("n", "w", ":w<CR>", opt)
 map("n", "Y", '"+y', opt)
 map("n", "P", '"+p', opt)
 map("v", "Y", '"+y', opt)
@@ -29,10 +30,10 @@ map("n", "<A-j>", "<C-w>j", opt)
 map("n", "<A-k>", "<C-w>k", opt)
 map("n", "<A-l>", "<C-w>l", opt)
 -- 窗口比例控制
-map("n", "<C-Left>", ":vertical resize -2<CR>", opt)
-map("n", "<C-Right>", ":vertical resize +2<CR>", opt)
-map("n", "<C-Down>", ":resize +2<CR>", opt)
-map("n", "<C-Up>", ":resize -2<CR>", opt)
+map("n", "<C-Right>", ":vertical resize -2<CR>", opt)
+map("n", "<C-Left>", ":vertical resize +2<CR>", opt)
+map("n", "<C-Up>", ":resize +2<CR>", opt)
+map("n", "<C-Down>", ":resize -2<CR>", opt)
 map("n", "<C-=>", "<C-w>=", opt)
 -- visual模式下缩进代码
 map("v", "<", "<gv", opt)

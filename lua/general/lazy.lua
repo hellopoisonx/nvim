@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	spec = { { import = "plugins" } },
 	default = { lazy = true, version = true },
-	install = { missing = true, colorscheme = { "tokyonight-storm" } },
+	install = { missing = true, colorscheme = { "moonfly" } },
 	checker = { enabled = false }, -- automatically check for plugin updates
 	performance = {
 		rtp = {
@@ -31,7 +31,7 @@ require("lazy").setup({
         cache = {
                 enabled = true,
                 path = vim.fn.stdpath('cache') .. 'lazy/cache',
-                disable_events = {"VimEnter", "BufReadPre"},
+                -- disable_events = {"VimEnter", "BufReadPre"},
                 ttl = 3600 * 24 * 5,
             },
         reset_packpath = true,

@@ -3,7 +3,7 @@ return {
 	{
 		"folke/noice.nvim",
 		lazy = false,
-        enabled = true,
+        enabled = false,
 		dependencies = {
 			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 			"MunifTanjim/nui.nvim",
@@ -15,7 +15,7 @@ return {
 				{
 					cmdline = {
 						enabled = true, -- enables the Noice cmdline UI
-						view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+						view = "cmdline", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
 						opts = {}, -- global options for the cmdline. See section on views
 						---@type table<string, CmdlineFormat>
 						format = {
