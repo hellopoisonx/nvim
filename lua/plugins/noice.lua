@@ -2,15 +2,16 @@ local vim = vim
 return {
 	{
 		"folke/noice.nvim",
-		lazy = false,
-        enabled = false,
+		lazy = true,
+        event = "VimEnter",
+		enabled = true,
 		dependencies = {
 			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 			"MunifTanjim/nui.nvim",
 			"rcarriga/nvim-notify",
 		},
 		config = function()
-            -- config.lsp.signature = false
+			-- config.lsp.signature = false
 			require("noice").setup({
 				{
 					cmdline = {
@@ -41,7 +42,7 @@ return {
 					messages = {
 						-- NOTE: If you enable messages, then the cmdline is enabled automatically.
 						-- This is a current Neovim limitation.
-						enabled = true, -- enables the Noice messages UI
+						enabled = false, -- enables the Noice messages UI
 						view = "notify", -- default view for messages
 						view_error = "notify", -- view for errors
 						view_warn = "notify", -- view for warnings

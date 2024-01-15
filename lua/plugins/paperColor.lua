@@ -1,11 +1,11 @@
 return {
-    {
-        "NLKNguyen/papercolor-theme",
-        enabled = false,
-        lazy = false,
+	{
+		"NLKNguyen/papercolor-theme",
+		enabled = false,
+		lazy = false,
 		priority = 1000,
-        -- config = function() 
-        --     vim.cmd[[colorscheme PaperColor]]
-        -- end
-    }
+		-- config = function()
+		--     vim.cmd[[colorscheme PaperColor]]
+		-- end
+	},
 }

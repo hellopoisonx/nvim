@@ -5,7 +5,8 @@ lazy-lock.json
 *.src.rock
 *.zip
 *.tar.gz
-
+# lua-lsp files
+lua/.luarc.json
 # Object files
 *.o
 *.os

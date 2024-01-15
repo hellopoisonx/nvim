@@ -1,12 +1,15 @@
 return {
 	{
 		"nvim-orgmode/orgmode",
-        lazy = false,
-        -- event = "VeryLazy",
+		enabled = false,
+		event = "VimEnter",
+		lazy = true,
+		-- event = "VeryLazy",
 		dependencies = {
 			"akinsho/org-bullets.nvim",
-            "lukas-reineke/headlines.nvim",
-            'nvim-treesitter/nvim-treesitter', lazy = false,
+			"lukas-reineke/headlines.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			lazy = false,
 		},
 		config = function()
 			require("orgmode").setup_ts_grammar()
@@ -31,7 +34,7 @@ return {
 				},
 			})
 			require("orgmode").setup({
-                org_agenda_files = {"~/agenda/org/*"},
+				org_agenda_files = { "~/agenda/org/*" },
 				org_default_notes_file = "~/notebooks/english/words.org",
 			})
 		end,
