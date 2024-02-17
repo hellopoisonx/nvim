@@ -15,6 +15,22 @@ return {
                         on_attach = lsp_attach.lsp_attach
                     }
                 end,
+                ["gopls"] = function()
+                    require("lspconfig")["gopls"].setup {
+                        cmd = { [[C:\Users\86135\go\bin\gopls.exe]] },
+                        on_attach = lsp_attach.lsp_attach,
+                        settings = {
+                            gopls = {
+                                experimentalPostfixCompletions = true,
+                                analyses = {
+                                    unusedparams = true,
+                                    shadow = true,
+                                },
+                                staticcheck = true,
+                            },
+                        }
+                    }
+                end,
                 ["lua_ls"] = function()
                     require("lspconfig")["lua_ls"].setup({
                         on_attach = lsp_attach.lsp_attach,
