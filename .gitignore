@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Compiled Lua sources
 luac.out
 lazy-lock.json
@@ -40,3 +41,15 @@ lua/.luarc.json
 *.x86_64
 *.hex
 
+=======
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+lazyvim.json
+lazy-lock.json
+>>>>>>> 7f88408 (lazynvim)

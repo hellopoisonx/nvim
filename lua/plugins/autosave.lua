@@ -1,4 +1,5 @@
 return {
+<<<<<<< HEAD
 	"Pocco81/auto-save.nvim",
 	config = function()
 		require("auto-save").setup({
@@ -15,4 +16,29 @@ return {
 			debounce_delay = 6000,
 		})
 	end,
+=======
+  "0x00-ketsu/autosave.nvim",
+  enabled = false,
+  lazy = true,
+  event = { "InsertLeave", "TextChanged" },
+  config = function()
+    require("autosave").setup({
+      enable = true,
+      prompt_style = "stdout",
+      prompt_message = function()
+        -- return "Autosave: saved at " .. vim.fn.strftime("%H:%M:%S")
+        return ""
+      end,
+      events = { "InsertLeave", "TextChanged" },
+      conditions = {
+        exists = true,
+        modifiable = true,
+        filename_is_not = {},
+        filetype_is_not = {},
+      },
+      write_all_buffers = false,
+      debounce_delay = 135,
+    })
+  end,
+>>>>>>> 7f88408 (lazynvim)
 }
