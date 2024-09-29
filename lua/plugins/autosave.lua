@@ -1,44 +1,21 @@
 return {
-<<<<<<< HEAD
-	"Pocco81/auto-save.nvim",
-	config = function()
-		require("auto-save").setup({
-			enabled = true,
-			execution_message = {
-				message = function() -- message to print on save
-					return ""
-				end,
-				dim = 0.18, -- dim the color of `message`
-				cleaning_interval = 1250, -- (milliseconds) automatically clean MsgArea after displaying `message`. See :h MsgArea
-			},
-			trigger_events = { "InsertLeave", "TextChanged" },
-			write_all_buffers = false,
-			debounce_delay = 6000,
-		})
-	end,
-=======
-  "0x00-ketsu/autosave.nvim",
-  enabled = false,
+  "Pocco81/auto-save.nvim",
+  enabled = true,
   lazy = true,
-  event = { "InsertLeave", "TextChanged" },
+  event = "VimEnter",
   config = function()
-    require("autosave").setup({
-      enable = true,
-      prompt_style = "stdout",
-      prompt_message = function()
-        -- return "Autosave: saved at " .. vim.fn.strftime("%H:%M:%S")
-        return ""
-      end,
-      events = { "InsertLeave", "TextChanged" },
-      conditions = {
-        exists = true,
-        modifiable = true,
-        filename_is_not = {},
-        filetype_is_not = {},
+    require("auto-save").setup({
+      enabled = true,
+      execution_message = {
+        message = function() -- message to print on save
+          return ""
+        end,
+        dim = 0.18, -- dim the color of `message`
+        cleaning_interval = 1250, -- (milliseconds) automatically clean MsgArea after displaying `message`. See :h MsgArea
       },
+      trigger_events = { "InsertLeave", "TextChanged" },
       write_all_buffers = false,
-      debounce_delay = 135,
+      debounce_delay = 6000,
     })
   end,
->>>>>>> 7f88408 (lazynvim)
 }
