@@ -1,0 +1,301 @@
+# Neovim 配置
+
+这是一个基于 `lazy.nvim` 的模块化 Neovim 配置，目标是提供轻量、清晰、接近 IDE 的 Go / Python / Lua / Shell / Markdown 开发体验。
+
+## 项目速览
+
+> 本节由原 `AGENTS.md` 迁移并补充，作为人类读者和编码代理都可参考的配置总览。
+
+- 入口文件：`init.lua`
+- 插件管理器：[`folke/lazy.nvim`](https://github.com/folke/lazy.nvim)
+- Leader 键：`<Space>`
+- 主题：[`catppuccin/nvim`](https://github.com/catppuccin/nvim)，默认 `catppuccin-mocha`
+- LSP：`gopls`、`pyright`、`lua_ls`
+- 主要功能：文件树、Telescope 搜索、LSP、补全、格式化、Lint、Git hunk、诊断面板、任务运行、Session 恢复、浮动终端、Markdown 渲染、快捷键提示
+
+### 主要插件索引
+
+- [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua)：文件树
+- [floaterm](https://github.com/nvzone/floaterm)：浮动终端；进入浮动终端后预留 `Ctrl+l/a/e/k` 给 shell 使用
+- [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)：LSP 配置
+- [formatter.nvim](https://github.com/mhartington/formatter.nvim)：格式化
+- [Comment.nvim](https://github.com/numtostr/comment.nvim)：注释
+- [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim)：Markdown 渲染
+- [LspUI.nvim](https://github.com/jinzhongjia/lspui.nvim)：LSP UI 增强
+- [barbar.nvim](https://github.com/romgrk/barbar.nvim)：Buffer 标签栏
+- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)：搜索 / Picker
+- [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)：Git hunk / blame
+- [nvim-lint](https://github.com/mfussenegger/nvim-lint)：异步 lint
+- [trouble.nvim](https://github.com/folke/trouble.nvim)：诊断 / quickfix / LSP 列表
+- [nvim-autopairs](https://github.com/windwp/nvim-autopairs)：自动括号
+- [overseer.nvim](https://github.com/stevearc/overseer.nvim)：任务运行器
+- [nvim-surround](https://github.com/kylechui/nvim-surround)：Surround 操作
+- [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)：缩进线
+- [auto-session](https://github.com/rmagatti/auto-session)：Session 管理
+- [which-key.nvim](https://github.com/folke/which-key.nvim)：快捷键提示
+
+## 环境要求
+
+- Neovim `>= 0.12`，当前配置使用了新版 `vim.lsp.config()` / `vim.lsp.enable()` API
+- Git `>= 2.19`
+- 推荐安装 Nerd Font，保证图标显示正常
+- 推荐命令行工具：
+  - `rg`：Telescope 全文搜索
+  - `fd`：Telescope 文件查找体验更好
+  - `tree-sitter`：Treesitter parser 安装与更新
+
+## 目录结构
+
+```text
+init.lua
+lua/
+  core/
+    options.lua      # 基础选项、诊断显示配置
+    keymaps.lua      # 全局快捷键
+    autocmds.lua     # 自动命令、LSP 快捷键、自动保存
+  plugins/
+    completion.lua   # nvim-cmp / LuaSnip 补全
+    diagnostics.lua  # nvim-lint / trouble.nvim
+    editing.lua      # autopairs / surround / indent guides
+    editor.lua       # 文件树、注释、终端、buffer、treesitter、markdown
+    formatter.lua    # formatter.nvim / mason-tool-installer
+    git.lua          # gitsigns.nvim
+    lsp.lua          # mason / lspconfig / LspUI
+    session.lua      # auto-session
+    tasks.lua        # overseer.nvim
+    telescope.lua    # Telescope 搜索
+    ui.lua           # 主题、通知、Noice UI、which-key
+lazy-lock.json       # lazy.nvim 插件锁定文件
+```
+
+## 插件栈概览
+
+### 核心
+
+- 插件管理：`folke/lazy.nvim`
+- 主题：`catppuccin/nvim`，默认 `catppuccin-mocha`
+- UI：`noice.nvim`、`nvim-notify`、`barbar.nvim`、`which-key.nvim`
+
+### LSP / 补全 / 格式化
+
+- LSP：`nvim-lspconfig`、`mason.nvim`、`mason-lspconfig.nvim`
+- LSP UI：`jinzhongjia/LspUI.nvim`
+- 补全：`nvim-cmp`、`cmp-nvim-lsp`、`cmp-buffer`、`cmp-path`
+- Snippet：`LuaSnip`、`friendly-snippets`
+- 格式化：`formatter.nvim`
+- 工具安装：`mason-tool-installer.nvim`
+
+默认 LSP：
+
+- `gopls`
+- `pyright`
+- `lua_ls`
+
+默认格式化工具：
+
+- Lua：`stylua`
+- Python：`black`
+- Go：`goimports` / `gofmt`
+- Shell：`shfmt`
+- JS / TS / JSON / CSS / HTML / Markdown / YAML：`prettier`
+
+### 开发闭环与编辑体验插件
+
+已配置：
+
+- Git：`lewis6991/gitsigns.nvim`
+- Lint：`mfussenegger/nvim-lint`
+- 诊断面板：`folke/trouble.nvim`
+- 自动括号：`windwp/nvim-autopairs`
+- 任务运行器：`stevearc/overseer.nvim`
+- Surround 操作：`kylechui/nvim-surround`
+- 缩进线：`lukas-reineke/indent-blankline.nvim`
+- Session 管理：`rmagatti/auto-session`
+- 快捷键提示：`folke/which-key.nvim`
+
+`mason-tool-installer` 同时补充安装常用 lint 工具：
+
+- `ruff`
+- `golangci-lint`
+- `shellcheck`
+- `eslint_d`
+- `markdownlint-cli2`
+- `yamllint`
+- `actionlint`
+
+## 快捷键
+
+Leader 键：`<Space>`
+
+### 常用
+
+| 快捷键       | 功能                                |
+| ------------ | ----------------------------------- |
+| `jj`         | Insert / Terminal 模式退出到 Normal |
+| `q`          | 关闭当前窗口                        |
+| `<Esc>`      | 清除搜索高亮                        |
+| `<leader>fm` | 格式化当前文件                      |
+| `<leader>?`  | 显示当前 Buffer 快捷键              |
+
+### 窗口 / 标签页
+
+| 快捷键        | 功能          |
+| ------------- | ------------- |
+| `sv`          | 垂直分屏      |
+| `sh`          | 水平分屏      |
+| `<C-h/j/k/l>` | 窗口间移动    |
+| `<leader>=`   | 平衡窗口大小  |
+| `<A-h>`       | 上一个 Buffer |
+| `<A-l>`       | 下一个 Buffer |
+| `<leader>bd`  | 关闭当前 Buffer |
+| `<leader>tn`  | 新建标签页    |
+| `<leader>tc`  | 关闭标签页    |
+
+### 文件 / 搜索
+
+| 快捷键       | 功能               |
+| ------------ | ------------------ |
+| `<leader>fe` | 打开/关闭文件树    |
+| `<leader>ff` | Telescope 查找文件 |
+| `<leader>fg` | Telescope 全文搜索 |
+| `<leader>fs` | 搜索光标下单词     |
+| `<leader>fb` | 查找 Buffer        |
+| `<leader>fh` | 查找帮助           |
+
+### 终端
+
+| 快捷键            | 功能             |
+| ----------------- | ---------------- |
+| `<leader>t`       | 底部打开内置终端 |
+| `<C-/>` / `<C-_>` | 切换浮动终端     |
+
+### LSP / 诊断
+
+| 快捷键       | 功能                   |
+| ------------ | ---------------------- |
+| `K`          | 悬浮文档               |
+| `gd`         | 跳转定义               |
+| `gi`         | 跳转实现               |
+| `gI`         | 跳转类型定义 / 接口    |
+| `gr`         | 查找引用               |
+| `<leader>cr` | 符号重命名             |
+| `<leader>ca` | Code Action            |
+| `[d` / `]d`  | 上一个 / 下一个诊断    |
+| `<leader>e`  | 打开当前行诊断浮窗     |
+| `<leader>q`  | 诊断写入 location list |
+| `<leader>cl` | 手动 lint 当前文件     |
+
+### Trouble 诊断面板
+
+| 快捷键       | 功能                   |
+| ------------ | ---------------------- |
+| `<leader>xx` | 打开/关闭工作区诊断    |
+| `<leader>xX` | 打开/关闭当前文件诊断  |
+| `<leader>xs` | 文档符号               |
+| `<leader>xl` | LSP 定义 / 引用 / 实现 |
+| `<leader>xq` | Quickfix 列表          |
+| `<leader>xL` | Location 列表          |
+
+### Git / Gitsigns
+
+| 快捷键       | 功能                     |
+| ------------ | ------------------------ |
+| `]g` / `[g`  | 下一个 / 上一个 Git hunk |
+| `<leader>gs` | 暂存 hunk                |
+| `<leader>gr` | 重置 hunk                |
+| `<leader>gS` | 暂存当前文件             |
+| `<leader>gR` | 重置当前文件             |
+| `<leader>gu` | 撤销暂存 hunk            |
+| `<leader>gp` | 预览 hunk                |
+| `<leader>gb` | 查看当前行 blame         |
+| `<leader>gB` | 切换行尾 blame           |
+| `<leader>gd` | 当前文件 diff            |
+| `<leader>gD` | 与上一版本 diff          |
+| `ih`         | Git hunk 文本对象        |
+
+### Overseer 任务
+
+| 快捷键       | 功能               |
+| ------------ | ------------------ |
+| `<leader>or` | 选择并运行任务     |
+| `<leader>oc` | 运行自定义命令任务 |
+| `<leader>ot` | 切换任务列表       |
+| `<leader>oa` | 当前任务操作       |
+| `<leader>oq` | 当前任务快捷操作   |
+| `<leader>oi` | Overseer 信息      |
+
+常用命令：
+
+```vim
+:OverseerRun
+:OverseerRunCmd
+:OverseerToggle
+:OverseerTaskAction
+```
+
+### Session / Auto Session
+
+| 快捷键       | 功能                  |
+| ------------ | --------------------- |
+| `<leader>sr` | 恢复当前目录 Session  |
+| `<leader>ss` | 保存当前目录 Session  |
+| `<leader>sf` | 查找 Session          |
+| `<leader>sd` | 删除当前目录 Session  |
+| `<leader>sD` | 选择并删除 Session    |
+| `<leader>st` | 切换 Session 自动保存 |
+| `<leader>sp` | 清理孤立 Session      |
+
+Session 会自动保存 / 恢复当前工作目录状态，并排除 `~/`、`~/Downloads`、`/` 等目录，避免在过大的根目录生成无意义 Session。
+
+### Which-key / Surround / Autopairs / 缩进线
+
+- `which-key.nvim`：按下 `<leader>` 等前缀键后显示可用快捷键；`<leader>?` 可查看当前 Buffer 的快捷键
+- `nvim-autopairs`：Insert 模式自动补全括号、引号等，并集成 `nvim-cmp` 确认补全后的括号处理
+- `nvim-surround`：使用默认快捷键，例如：
+  - `ys{motion}{char}` 添加 surround
+  - `ds{char}` 删除 surround
+  - `cs{old}{new}` 修改 surround
+- `indent-blankline.nvim`：显示缩进参考线和当前作用域
+
+## Lint 配置
+
+`nvim-lint` 会在以下事件触发：
+
+- `BufWritePost`
+- `BufReadPost`
+- `InsertLeave`
+
+已配置 filetype：
+
+| Filetype                        | Linter                    |
+| ------------------------------- | ------------------------- |
+| Python                          | `ruff`                    |
+| Go                              | `golangci-lint`           |
+| Shell / Bash / Zsh              | `shellcheck`              |
+| JavaScript / TypeScript / React | `eslint_d`                |
+| Markdown                        | `markdownlint-cli2`       |
+| YAML                            | `yamllint`                |
+| GitHub Actions YAML             | `actionlint` + `yamllint` |
+
+配置会在运行 lint 前检查 linter 可执行文件是否存在，避免缺少工具时反复报错。
+
+## 常用维护命令
+
+```vim
+:Lazy              " 插件管理 UI
+:Lazy sync         " 同步/安装/清理插件
+:Mason             " 管理 LSP、formatter、linter 等工具
+:LspInfo           " 查看 LSP 状态
+:checkhealth       " 检查 Neovim 健康状态
+:Format            " 格式化当前文件
+:Trouble diagnostics toggle
+:OverseerRun
+:AutoSession search
+:WhichKey
+```
+
+## 备注
+
+- 当前配置开启了自动保存：编辑后延迟写入文件，并在离开 buffer / 失焦 / 退出前保存。
+- `lazy-lock.json` 会锁定插件版本，便于复现环境。
+- 如果新增语言支持，通常需要同时补充：LSP、formatter、linter、treesitter parser。
