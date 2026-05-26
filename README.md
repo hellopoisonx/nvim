@@ -174,16 +174,18 @@ Leader 键：`<Space>`
 | 快捷键       | 功能                   |
 | ------------ | ---------------------- |
 | `K`          | 悬浮文档               |
-| `gd`         | 跳转定义               |
-| `gi`         | 跳转实现               |
-| `gI`         | 跳转类型定义 / 接口    |
-| `gr`         | 查找引用               |
+| `gd`         | Telescope 选择并跳转定义 |
+| `gi`         | Telescope 选择并跳转实现 |
+| `gI`         | Telescope 选择并跳转类型定义 / 接口 |
+| `gr`         | Telescope 查找并跳转引用 |
 | `<leader>cr` | 符号重命名             |
 | `<leader>ca` | Code Action            |
 | `[d` / `]d`  | 上一个 / 下一个诊断    |
 | `<leader>e`  | 打开当前行诊断浮窗     |
 | `<leader>q`  | 诊断写入 location list |
 | `<leader>cl` | 手动 lint 当前文件     |
+
+LSP 位置类跳转使用 Telescope picker，选择条目并按 `<CR>` 即可跳转；如果 Telescope 不可用，会自动回退到 Neovim 内置 LSP 跳转。
 
 ### Trouble 诊断面板
 

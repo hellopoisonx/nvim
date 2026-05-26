@@ -113,11 +113,34 @@ autocmd("LspAttach", {
 			end
 		end
 
+		local function telescope_or_builtin(picker, fallback, picker_opts)
+			return function()
+				local ok_telescope, telescope_builtin = pcall(require, "telescope.builtin")
+				local telescope_picker = ok_telescope and telescope_builtin[picker]
+
+				if type(telescope_picker) == "function" then
+					local opts = vim.tbl_extend("force", { reuse_win = true }, picker_opts or {})
+					local ok_picker = pcall(telescope_picker, opts)
+
+					if ok_picker then
+						return
+					end
+				end
+
+				fallback()
+			end
+		end
+
 		map("n", "K", lspui_or_builtin("hover", vim.lsp.buf.hover), "悬浮文档")
-		map("n", "gd", lspui_or_builtin("definition", vim.lsp.buf.definition), "跳转定义")
-		map("n", "gi", lspui_or_builtin("implementation", vim.lsp.buf.implementation), "跳转实现")
-		map("n", "gI", lspui_or_builtin("type_definition", vim.lsp.buf.type_definition), "跳转类型/接口")
-		map("n", "gr", lspui_or_builtin("reference", vim.lsp.buf.references), "查找引用")
+		map("n", "gd", telescope_or_builtin("lsp_definitions", vim.lsp.buf.definition), "跳转定义")
+		map("n", "gi", telescope_or_builtin("lsp_implementations", vim.lsp.buf.implementation), "跳转实现")
+		map("n", "gI", telescope_or_builtin("lsp_type_definitions", vim.lsp.buf.type_definition), "跳转类型/接口")
+		map(
+			"n",
+			"gr",
+			telescope_or_builtin("lsp_references", vim.lsp.buf.references, { include_declaration = false }),
+			"查找引用"
+		)
 		map("n", "<leader>cr", lspui_or_builtin("rename", vim.lsp.buf.rename), "符号重命名")
 		map("n", "<leader>ca", lspui_or_builtin("code_action", vim.lsp.buf.code_action), "代码操作")
 	end,
