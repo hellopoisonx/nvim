@@ -134,7 +134,11 @@ autocmd("LspAttach", {
 		map("n", "K", lspui_or_builtin("hover", vim.lsp.buf.hover), "悬浮文档")
 		map("n", "gd", telescope_or_builtin("lsp_definitions", vim.lsp.buf.definition), "跳转定义")
 		map("n", "gi", telescope_or_builtin("lsp_implementations", vim.lsp.buf.implementation), "跳转实现")
-		map("n", "gI", telescope_or_builtin("lsp_type_definitions", vim.lsp.buf.type_definition), "跳转类型/接口")
+		if vim.bo[event.buf].filetype == "go" then
+			map("n", "gI", telescope_or_builtin("lsp_implementations", vim.lsp.buf.implementation), "跳转接口实现")
+		else
+			map("n", "gI", telescope_or_builtin("lsp_type_definitions", vim.lsp.buf.type_definition), "跳转类型定义")
+		end
 		map(
 			"n",
 			"gr",

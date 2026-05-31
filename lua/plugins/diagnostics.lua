@@ -2,7 +2,7 @@ local lint_events = { "BufWritePost", "BufReadPost", "InsertLeave" }
 
 local linters_by_ft = {
 	python = { "ruff" },
-	go = { "golangcilint" },
+	-- go 由 gopls 提供实时诊断，golangci-lint 通过 <leader>Gl 手动触发
 	sh = { "shellcheck" },
 	bash = { "shellcheck" },
 	zsh = { "shellcheck" },

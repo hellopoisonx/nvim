@@ -1,4 +1,4 @@
-local servers = { "gopls", "pyright", "lua_ls", "ts_ls" }
+local servers = { "pyright", "lua_ls", "ts_ls", "gopls" }
 
 return {
 	{
@@ -24,29 +24,7 @@ return {
 			end
 
 			local server_configs = {
-				gopls = {
-					capabilities = capabilities,
-					settings = {
-						gopls = {
-							gofumpt = true,
-							staticcheck = true,
-							analyses = {
-								unusedparams = true,
-								unusedwrite = true,
-								useany = true,
-							},
-							hints = {
-								assignVariableTypes = true,
-								compositeLiteralFields = true,
-								compositeLiteralTypes = true,
-								constantValues = true,
-								functionTypeParameters = true,
-								parameterNames = true,
-								rangeVariableTypes = true,
-							},
-						},
-					},
-				},
+
 				pyright = {
 					capabilities = capabilities,
 					settings = {
@@ -85,6 +63,48 @@ return {
 								includeInlayPropertyDeclarationTypeHints = true,
 								includeInlayFunctionLikeReturnTypeHints = true,
 								includeInlayEnumMemberValueHints = true,
+							},
+						},
+					},
+				},
+				gopls = {
+					capabilities = capabilities,
+					settings = {
+						gopls = {
+							completeUnimported = true,
+							deepCompletion = true,
+							matcher = "Fuzzy",
+							symbolMatcher = "FastFuzzy",
+							semanticTokens = false,
+							codelenses = {
+								gc_details = false,
+								generate = true,
+								regenerate_cgo = true,
+								tidy = true,
+								upgrade_dependency = true,
+								vendor = true,
+							},
+							hints = {
+								assignVariableTypes = true,
+								compositeLiteralFields = true,
+								compositeLiteralTypes = true,
+								constantValues = true,
+								functionTypeParameters = true,
+								parameterNames = true,
+								rangeVariableTypes = true,
+							},
+							analyses = {
+								unusedparams = true,
+								unusedwrite = true,
+								useany = true,
+								fieldalignment = false,
+								shadow = false,
+							},
+							staticcheck = true,
+							directoryFilters = {
+								"-vendor",
+								"-node_modules",
+								"-.git",
 							},
 						},
 					},

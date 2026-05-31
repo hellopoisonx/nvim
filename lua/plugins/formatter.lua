@@ -89,17 +89,7 @@ return {
 							return { exe = "black", args = { "--quiet", "-" }, stdin = true }
 						end,
 					},
-					go = {
-						function()
-							if has("goimports") then
-								return { exe = "goimports", stdin = true, no_append = true }
-							end
-							if has("gofmt") then
-								return { exe = "gofmt", stdin = true, no_append = true }
-							end
-							return nil
-						end,
-					},
+					-- go: 由 go.nvim 处理格式化 (gofumpt + goimports)
 					sh = {
 						function()
 							if not has("shfmt") then

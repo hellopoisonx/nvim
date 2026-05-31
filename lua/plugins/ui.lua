@@ -102,6 +102,7 @@ return {
 				{ "<leader>c", group = "代码" },
 				{ "<leader>f", group = "文件/搜索" },
 				{ "<leader>g", group = "Git" },
+				{ "<leader>G", group = "Go" },
 				{ "<leader>o", group = "任务" },
 				{ "<leader>s", group = "Session" },
 				{ "<leader>t", group = "标签页/终端" },

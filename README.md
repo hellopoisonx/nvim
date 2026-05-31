@@ -61,6 +61,7 @@ lua/
     editor.lua       # 文件树、注释、终端、buffer、treesitter、markdown
     formatter.lua    # formatter.nvim / mason-tool-installer
     git.lua          # gitsigns.nvim
+    go.lua           # go.nvim (Go 开发)
     lsp.lua          # mason / lspconfig / LspUI
     session.lua      # auto-session
     tasks.lua        # overseer.nvim
@@ -81,6 +82,7 @@ lazy-lock.json       # lazy.nvim 插件锁定文件
 
 - LSP：`nvim-lspconfig`、`mason.nvim`、`mason-lspconfig.nvim`
 - LSP UI：`jinzhongjia/LspUI.nvim`
+- Go 开发：[`ray-x/go.nvim`](https://github.com/ray-x/go.nvim)（gopls 管理、测试、格式化、代码生成、Tag 管理等）
 - 补全：`nvim-cmp`、`cmp-nvim-lsp`、`cmp-buffer`、`cmp-path`
 - Snippet：`LuaSnip`、`friendly-snippets`
 - 格式化：`formatter.nvim`
@@ -88,7 +90,7 @@ lazy-lock.json       # lazy.nvim 插件锁定文件
 
 默认 LSP：
 
-- `gopls`
+- `gopls`（由 go.nvim 管理）
 - `pyright`
 - `lua_ls`
 
@@ -96,7 +98,7 @@ lazy-lock.json       # lazy.nvim 插件锁定文件
 
 - Lua：`stylua`
 - Python：`black`
-- Go：`goimports` / `gofmt`
+- Go：`gofumpt` + `goimports`（由 go.nvim 管理，保存时自动执行）
 - Shell：`shfmt`
 - JS / TS / JSON / CSS / HTML / Markdown / YAML：`prettier`
 
@@ -104,6 +106,7 @@ lazy-lock.json       # lazy.nvim 插件锁定文件
 
 已配置：
 
+- Go：`ray-x/go.nvim`（gopls、测试、覆盖率、代码生成、Tag、文档、DAP 调试）
 - Git：`lewis6991/gitsigns.nvim`
 - Lint：`mfussenegger/nvim-lint`
 - 诊断面板：`folke/trouble.nvim`
@@ -177,7 +180,7 @@ Leader 键：`<Space>`
 | `K`          | 悬浮文档               |
 | `gd`         | Telescope 选择并跳转定义 |
 | `gi`         | Telescope 选择并跳转实现 |
-| `gI`         | Telescope 选择并跳转类型定义 / 接口 |
+| `gI`         | Go 文件：跳转接口实现；其他文件：跳转类型定义 |
 | `gr`         | Telescope 查找并跳转引用 |
 | `<leader>cr` | 符号重命名             |
 | `<leader>ca` | Code Action            |
@@ -215,6 +218,56 @@ LSP 位置类跳转使用 Telescope picker，选择条目并按 `<CR>` 即可跳
 | `<leader>gd` | 当前文件 diff            |
 | `<leader>gD` | 与上一版本 diff          |
 | `ih`         | Git hunk 文本对象        |
+
+### Go (go.nvim)
+
+前缀键：`<leader>G`
+
+| 快捷键          | 功能                       |
+| --------------- | -------------------------- |
+| `<leader>Gr`    | 运行当前文件               |
+| `<leader>Gb`    | 构建                       |
+| `<leader>Gt`    | 运行测试                   |
+| `<leader>GT`    | 测试当前文件               |
+| `<leader>GF`    | 测试当前函数               |
+| `<leader>Gc`    | 测试覆盖率                 |
+| `<leader>Gie`   | 自动填充 if err            |
+| `<leader>Gif`   | 填充结构体                 |
+| `<leader>Gis`   | 填充 switch                |
+| `<leader>Gii`   | 实现接口                   |
+| `<leader>Git`   | 生成单元测试               |
+| `<leader>Gta`   | 添加 struct tag            |
+| `<leader>Gtr`   | 移除 struct tag            |
+| `<leader>Gdd`   | 查看文档                   |
+| `<leader>Gdb`   | 浏览器打开文档             |
+| `<leader>Ga`    | 切换测试/实现文件          |
+| `<leader>Gav`   | 垂直分屏切换               |
+| `<leader>Gas`   | 水平分屏切换               |
+| `<leader>Gmt`   | mod tidy                   |
+| `<leader>Gmv`   | mod vendor                 |
+| `<leader>Gg`    | go get                     |
+| `<leader>Gl`    | golangci-lint              |
+| `<leader>Gv`    | 漏洞检查 (govulncheck)     |
+| `<leader>Gcm`   | 生成注释                   |
+| `<leader>Gen`   | 生成 enum                  |
+| `<leader>Gjr`   | JSON 转 Struct             |
+
+常用命令：
+
+```vim
+:GoRun              " 运行当前文件
+:GoTest             " 运行测试
+:GoTestFunc         " 测试当前函数
+:GoCoverage         " 测试覆盖率
+:GoAlt              " 切换测试/实现文件
+:GoDoc              " 查看文档
+:GoImpl             " 实现接口
+:GoIfErr            " 自动填充 if err
+:GoModTidy          " mod tidy
+:GoLint             " golangci-lint
+```
+
+go.nvim 会在保存 Go 文件时自动执行 `goimports` + `gofumpt` 格式化。
 
 ### Overseer 任务
 
