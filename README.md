@@ -274,19 +274,24 @@ Go 文件使用 `<leader>fm` 或 `:Format` 手动触发 `gofumpt` 格式化（�
 | 快捷键       | 功能               |
 | ------------ | ------------------ |
 | `<leader>or` | 选择并运行任务     |
-| `<leader>oc` | 运行自定义命令任务 |
+| `<leader>oc` | 运行 Shell 命令任务 |
 | `<leader>ot` | 切换任务列表       |
 | `<leader>oa` | 当前任务操作       |
-| `<leader>oq` | 当前任务快捷操作   |
-| `<leader>oi` | Overseer 信息      |
 
 常用命令：
 
 ```vim
 :OverseerRun
-:OverseerRunCmd
+:OverseerShell
 :OverseerToggle
 :OverseerTaskAction
+```
+
+**自定义任务模板**：
+
+- **Go**: `Go: Run Current File` / `Go: Build Project`（自动查找 go.mod）
+- **Flutter (fvm)**: `Flutter: Run` / `Flutter: Build`（支持选择构建目标）
+- **Docker**: `Docker: Compose Up` / `Docker: Compose Down`（自动查找 compose 文件）
 ```
 
 ### Session / Auto Session
