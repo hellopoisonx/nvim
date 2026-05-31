@@ -1,3 +1,9 @@
+-- 确保 Mason bin 在 PATH 中，让 formatter 能找到工具
+local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+if vim.fn.isdirectory(mason_bin) == 1 then
+	vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
+end
+
 local function has(exe)
 	return vim.fn.executable(exe) == 1
 end
@@ -43,7 +49,7 @@ return {
 	},
 	{
 		"mhartington/formatter.nvim",
-		cmd = { "Format", "FormatWrite", "FormatLock", "FormatWriteLock" },
+		lazy = false,
 		keys = {
 			{
 				"<leader>fm",
@@ -89,7 +95,18 @@ return {
 							return { exe = "black", args = { "--quiet", "-" }, stdin = true }
 						end,
 					},
-					-- go: 由 go.nvim 处理格式化 (gofumpt + goimports)
+					go = {
+						function()
+							if not has("gofumpt") then
+								return nil
+							end
+							return {
+								exe = "gofumpt",
+								args = {},
+								stdin = true,
+							}
+						end,
+					},
 					sh = {
 						function()
 							if not has("shfmt") then

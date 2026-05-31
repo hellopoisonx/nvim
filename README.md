@@ -98,7 +98,7 @@ lazy-lock.json       # lazy.nvim 插件锁定文件
 
 - Lua：`stylua`
 - Python：`black`
-- Go：`gofumpt` + `goimports`（由 go.nvim 管理，保存时自动执行）
+- Go：`gofumpt`（通过 formatter.nvim，手动触发）
 - Shell：`shfmt`
 - JS / TS / JSON / CSS / HTML / Markdown / YAML：`prettier`
 
@@ -267,7 +267,7 @@ LSP 位置类跳转使用 Telescope picker，选择条目并按 `<CR>` 即可跳
 :GoLint             " golangci-lint
 ```
 
-go.nvim 会在保存 Go 文件时自动执行 `goimports` + `gofumpt` 格式化。
+Go 文件使用 `<leader>fm` 或 `:Format` 手动触发 `gofumpt` 格式化（已禁用保存时自动格式化）。
 
 ### Overseer 任务
 

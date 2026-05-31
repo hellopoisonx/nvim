@@ -75,15 +75,15 @@ return {
 				},
 			})
 
-			-- BufWritePre 自动执行 goimports
-			local format_grp = vim.api.nvim_create_augroup("GoFormat", { clear = true })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				pattern = "*.go",
-				callback = function()
-					require("go.format").goimports()
-				end,
-				group = format_grp,
-			})
+			-- BufWritePre 自动执行 goimports (已禁用自动格式化，手动 <leader>fm 触发)
+			-- local format_grp = vim.api.nvim_create_augroup("GoFormat", { clear = true })
+			-- vim.api.nvim_create_autocmd("BufWritePre", {
+			-- 	pattern = "*.go",
+			-- 	callback = function()
+			-- 		require("go.format").goimports()
+			-- 	end,
+			-- 	group = format_grp,
+			-- })
 		end,
 	},
 }
