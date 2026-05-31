@@ -1,4 +1,4 @@
-local servers = { "gopls", "pyright", "lua_ls" }
+local servers = { "gopls", "pyright", "lua_ls", "ts_ls" }
 
 return {
 	{
@@ -56,6 +56,35 @@ return {
 								diagnosticMode = "workspace",
 								useLibraryCodeForTypes = true,
 								typeCheckingMode = "basic",
+							},
+						},
+					},
+				},
+				ts_ls = {
+					capabilities = capabilities,
+					settings = {
+						typescript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "all",
+								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = true,
+								includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
+							},
+						},
+						javascript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "all",
+								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = true,
+								includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
 							},
 						},
 					},

@@ -167,4 +167,23 @@ return {
 			code = { border = "thin" },
 		},
 	},
+	{
+		"selimacerbas/markdown-preview.nvim",
+		dependencies = { "selimacerbas/live-server.nvim" },
+		cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewRefresh" },
+		keys = {
+			{ "<leader>mps", "<cmd>MarkdownPreview<CR>", desc = "Markdown: 开始预览" },
+			{ "<leader>mpS", "<cmd>MarkdownPreviewStop<CR>", desc = "Markdown: 停止预览" },
+			{ "<leader>mpr", "<cmd>MarkdownPreviewRefresh<CR>", desc = "Markdown: 刷新预览" },
+		},
+		config = function()
+			require("markdown_preview").setup({
+				instance_mode = "takeover",
+				port = 0,
+				open_browser = true,
+				default_theme = "dark",
+				debounce_ms = 300,
+			})
+		end,
+	},
 }

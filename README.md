@@ -21,6 +21,7 @@
 - [formatter.nvim](https://github.com/mhartington/formatter.nvim)：格式化
 - [Comment.nvim](https://github.com/numtostr/comment.nvim)：注释
 - [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim)：Markdown 渲染
+- [markdown-preview.nvim](https://github.com/selimacerbas/markdown-preview.nvim)：Markdown 浏览器预览（含 Mermaid 支持）
 - [LspUI.nvim](https://github.com/jinzhongjia/lspui.nvim)：LSP UI 增强
 - [barbar.nvim](https://github.com/romgrk/barbar.nvim)：Buffer 标签栏
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)：搜索 / Picker
@@ -248,6 +249,24 @@ LSP 位置类跳转使用 Telescope picker，选择条目并按 `<CR>` 即可跳
 | `<leader>sp` | 清理孤立 Session      |
 
 Session 会自动保存 / 恢复当前工作目录状态，并排除 `~/`、`~/Downloads`、`/` 等目录，避免在过大的根目录生成无意义 Session。
+### Markdown 预览
+
+| 快捷键        | 功能                   |
+| ------------- | ---------------------- |
+| `<leader>mps` | Markdown: 开始预览     |
+| `<leader>mpS` | Markdown: 停止预览     |
+| `<leader>mpr` | Markdown: 刷新预览     |
+
+常用命令：
+
+```vim
+:MarkdownPreview       " 开始浏览器预览
+:MarkdownPreviewStop   " 停止预览
+:MarkdownPreviewRefresh " 强制刷新
+```
+
+Mermaid 图表在浏览器中渲染为可交互 SVG，支持缩放、平移和导出。
+
 
 ### Which-key / Surround / Autopairs / 缩进线
 
