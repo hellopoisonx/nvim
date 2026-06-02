@@ -35,7 +35,9 @@ nvim --headless "+lua print('config loaded')" +qa
 
 - `folke/lazy.nvim`
 - `catppuccin/nvim`
-- `nvim-tree/nvim-tree.lua`
+- `nvim-mini/mini.files`
+- `nvim-mini/mini.jump`
+- `nvim-mini/mini.jump2d`
 - `nvim-telescope/telescope.nvim`
 - `neovim/nvim-lspconfig`
 - `hrsh7th/nvim-cmp`

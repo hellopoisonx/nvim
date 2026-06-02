@@ -24,7 +24,6 @@ return {
 				"help",
 				"lazy",
 				"mason",
-				"NvimTree",
 				"notify",
 				"OverseerList",
 				"qf",

@@ -11,11 +11,13 @@
 - Leader 键：`<Space>`
 - 主题：[`catppuccin/nvim`](https://github.com/catppuccin/nvim)，默认 `catppuccin-mocha`
 - LSP：`gopls`、`pyright`、`lua_ls`
-- 主要功能：文件树、Telescope 搜索、LSP、补全、格式化、Lint、Git hunk、诊断面板、任务运行、Session 恢复、浮动终端、Markdown 渲染、快捷键提示
+- 主要功能：文件浏览器、Telescope 搜索、LSP、补全、格式化、Lint、Git hunk、诊断面板、任务运行、Session 恢复、浮动终端、Markdown 渲染、快捷键提示
 
 ### 主要插件索引
 
-- [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua)：文件树
+- [mini.files](https://github.com/nvim-mini/mini.files)：浮动文件浏览器
+- [mini.jump](https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-jump.md)：扩展 `f` / `F` / `t` / `T` 在多行工作
+- [mini.jump2d](https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-jump2d.md)：可见行内的迭代标签跳转
 - [floaterm](https://github.com/nvzone/floaterm)：浮动终端；进入浮动终端后预留 `Ctrl+l/a/e/k` 给 shell 使用
 - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)：LSP 配置
 - [formatter.nvim](https://github.com/mhartington/formatter.nvim)：格式化
@@ -58,7 +60,7 @@ lua/
     completion.lua   # nvim-cmp / LuaSnip 补全
     diagnostics.lua  # nvim-lint / trouble.nvim
     editing.lua      # autopairs / surround / indent guides
-    editor.lua       # 文件树、注释、终端、buffer、treesitter、markdown
+    editor.lua       # 文件浏览器、注释、终端、buffer、treesitter、markdown、跳转
     formatter.lua    # formatter.nvim / mason-tool-installer
     git.lua          # gitsigns.nvim
     go.lua           # go.nvim (Go 开发)
@@ -116,6 +118,7 @@ lazy-lock.json       # lazy.nvim 插件锁定文件
 - 缩进线：`lukas-reineke/indent-blankline.nvim`
 - Session 管理：`rmagatti/auto-session`
 - 快捷键提示：`folke/which-key.nvim`
+- 跳转：`nvim-mini/mini.jump`（多行 `f`/`F`/`t`/`T`）、`nvim-mini/mini.jump2d`（可见区迭代跳转）
 
 `mason-tool-installer` 同时补充安装常用 lint 工具：
 
@@ -157,14 +160,15 @@ Leader 键：`<Space>`
 
 ### 文件 / 搜索
 
-| 快捷键       | 功能               |
-| ------------ | ------------------ |
-| `<leader>fe` | 打开/关闭文件树    |
-| `<leader>ff` | Telescope 查找文件 |
-| `<leader>fg` | Telescope 全文搜索 |
-| `<leader>fs` | 搜索光标下单词     |
-| `<leader>fb` | 查找 Buffer        |
-| `<leader>fh` | 查找帮助           |
+| 快捷键       | 功能                   |
+| ------------ | ---------------------- |
+| `<leader>fe` | 打开/关闭文件浏览器    |
+| `<leader>ff` | Telescope 查找文件     |
+| `<leader>fg` | Telescope 全文搜索     |
+| `<leader>fs` | 搜索光标下单词         |
+| `<leader>fb` | 查找 Buffer            |
+| `<leader>fh` | 查找帮助               |
+| `<CR>`       | mini.jump2d 跨行跳转（覆盖 normal <CR> 默认跳到行首） |
 
 ### 终端
 

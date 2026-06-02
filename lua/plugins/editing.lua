@@ -4,7 +4,7 @@ return {
 		event = "InsertEnter",
 		opts = {
 			check_ts = true,
-			disable_filetype = { "TelescopePrompt", "NvimTree", "Trouble", "OverseerForm" },
+			disable_filetype = { "TelescopePrompt", "Trouble", "OverseerForm" },
 			fast_wrap = {},
 		},
 		config = function(_, opts)
@@ -44,7 +44,6 @@ return {
 					"lazy",
 					"mason",
 					"notify",
-					"NvimTree",
 					"Trouble",
 					"OverseerList",
 				},
