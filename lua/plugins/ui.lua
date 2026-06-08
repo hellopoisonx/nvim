@@ -99,6 +99,7 @@ return {
 			preset = "modern",
 			delay = 300,
 			spec = {
+				{ "<leader>a", group = "Pi / AI" },
 				{ "<leader>c", group = "代码" },
 				{ "<leader>f", group = "文件/搜索" },
 				{ "<leader>g", group = "Git" },

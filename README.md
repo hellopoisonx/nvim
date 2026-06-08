@@ -36,6 +36,8 @@
 - [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)：缩进线
 - [auto-session](https://github.com/rmagatti/auto-session)：Session 管理
 - [which-key.nvim](https://github.com/folke/which-key.nvim)：快捷键提示
+- [pi.nvim](https://github.com/pablopunk/pi.nvim)：Neovim 内通过 pi CLI 与 AI 交互
+
 
 ## 环境要求
 
@@ -69,6 +71,7 @@ lua/
     tasks.lua        # overseer.nvim
     telescope.lua    # Telescope 搜索
     ui.lua           # 主题、通知、Noice UI、which-key
+    pi.lua           # pi.nvim AI 交互
 lazy-lock.json       # lazy.nvim 插件锁定文件
 ```
 
@@ -144,6 +147,15 @@ Leader 键：`<Space>`
 | `<Esc>`      | 清除搜索高亮                        |
 | `<leader>fm` | 格式化当前文件                      |
 | `<leader>?`  | 显示当前 Buffer 快捷键              |
+
+### Pi / AI
+
+| 快捷键       | 功能                   |
+| ------------ | ---------------------- |
+| `<leader>ai` | Pi: 提问 (当前 Buffer)  |
+| `<leader>ai` | Pi: 提问 (选区，Visual) |
+| `<leader>ac` | Pi: 取消当前请求       |
+| `<leader>al` | Pi: 查看会话日志       |
 
 ### 窗口 / 标签页
 
