@@ -21,6 +21,20 @@ local function prettier()
 	}
 end
 
+-- clang-format：C / C++ / Objective-C / CUDA 的统一格式化器
+-- 通过 --assume-filename 让 stdin 输入也能匹配项目根目录的 .clang-format 规则
+local function clang_format()
+	if not has("clang-format") then
+		return nil
+	end
+	local util = require("formatter.util")
+	return {
+		exe = "clang-format",
+		args = { "--assume-filename=" .. util.escape_path(util.get_current_buffer_file_path()) },
+		stdin = true,
+	}
+end
+
 return {
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -119,6 +133,11 @@ return {
 							}
 						end,
 					},
+					c = { clang_format },
+					cpp = { clang_format },
+					objc = { clang_format },
+					objcpp = { clang_format },
+					cuda = { clang_format },
 					javascript = { prettier },
 					javascriptreact = { prettier },
 					typescript = { prettier },

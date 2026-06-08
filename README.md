@@ -10,7 +10,7 @@
 - 插件管理器：[`folke/lazy.nvim`](https://github.com/folke/lazy.nvim)
 - Leader 键：`<Space>`
 - 主题：[`catppuccin/nvim`](https://github.com/catppuccin/nvim)，默认 `catppuccin-mocha`
-- LSP：`gopls`、`pyright`、`lua_ls`
+- LSP：`gopls`、`pyright`、`lua_ls`、`clangd`
 - 主要功能：文件浏览器、Telescope 搜索、LSP、补全、格式化、Lint、Git hunk、诊断面板、任务运行、Session 恢复、浮动终端、Markdown 渲染、快捷键提示
 
 ### 主要插件索引
@@ -95,6 +95,7 @@ lazy-lock.json       # lazy.nvim 插件锁定文件
 - `gopls`（由 go.nvim 管理）
 - `pyright`
 - `lua_ls`
+- `clangd`（C / C++ / Objective-C / CUDA）
 
 默认格式化工具：
 
@@ -102,8 +103,8 @@ lazy-lock.json       # lazy.nvim 插件锁定文件
 - Python：`black`
 - Go：`gofumpt`（通过 formatter.nvim，手动触发）
 - Shell：`shfmt`
+- C / C++ / Objective-C / CUDA：`clang-format`（通过 formatter.nvim；本配置根目录附带 LLVM 风格 `.clang-format`，各项目可自带规则覆盖）
 - JS / TS / JSON / CSS / HTML / Markdown / YAML：`prettier`
-
 ### 开发闭环与编辑体验插件
 
 已配置：

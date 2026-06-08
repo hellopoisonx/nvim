@@ -1,4 +1,4 @@
-local servers = { "pyright", "lua_ls", "ts_ls", "gopls" }
+local servers = { "pyright", "lua_ls", "ts_ls", "gopls", "clangd" }
 
 return {
 	{
@@ -123,6 +123,26 @@ return {
 								},
 							},
 							telemetry = { enable = false },
+						},
+					},
+				},
+				clangd = {
+					capabilities = capabilities,
+					cmd = {
+						"clangd",
+						"--background-index",
+						"--clang-tidy",
+						"--header-insertion=iwyu",
+						"--function-arg-placeholders",
+						"--query-driver=**/*",
+					},
+					init_options = {
+						usePlaceholders = true,
+						clangdFileStatus = true,
+					},
+					settings = {
+						clangd = {
+							fallbackFlags = { "-std=c++17" },
 						},
 					},
 				},
