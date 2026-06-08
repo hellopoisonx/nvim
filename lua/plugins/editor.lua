@@ -139,6 +139,8 @@ return {
 				"vim",
 				"vimdoc",
 				"yaml",
+				"dart",
+			
 			}
 
 			require("nvim-treesitter").setup({
@@ -174,6 +176,8 @@ return {
 					"vim",
 					"vimdoc",
 					"yaml",
+					"dart",
+				
 				},
 				callback = function(args)
 					pcall(vim.treesitter.start, args.buf)
