@@ -15,6 +15,7 @@ return {
 				gitsigns = true,
 				indent_blankline = { enabled = true },
 				native_lsp = { enabled = true },
+				dropbar = { enabled = true },
 				overseer = true,
 			},
 		},

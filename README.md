@@ -34,8 +34,8 @@
 - [overseer.nvim](https://github.com/stevearc/overseer.nvim)：任务运行器
 - [nvim-surround](https://github.com/kylechui/nvim-surround)：Surround 操作
 - [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)：缩进线
+- [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim)：winbar 面包屑（LSP / Treesitter / Path 自动 fallback）
 - [auto-session](https://github.com/rmagatti/auto-session)：Session 管理
-- [which-key.nvim](https://github.com/folke/which-key.nvim)：快捷键提示
 - [pi.nvim](https://github.com/pablopunk/pi.nvim)：Neovim 内通过 pi CLI 与 AI 交互
 
 
@@ -205,7 +205,9 @@ Leader 键：`<Space>`
 | `<leader>e`  | 打开当前行诊断浮窗     |
 | `<leader>q`  | 诊断写入 location list |
 | `<leader>cl` | 手动 lint 当前文件     |
-
+| `<leader>;`  | dropbar：Pick 模式选择面包屑符号 |
+| `[;`         | dropbar：跳到当前 context 起点 |
+| `];`         | dropbar：选下一个 context |
 LSP 位置类跳转使用 Telescope picker，选择条目并按 `<CR>` 即可跳转；如果 Telescope 不可用，会自动回退到 Neovim 内置 LSP 跳转。
 
 ### Trouble 诊断面板

@@ -20,7 +20,7 @@ opt.softtabstop = 4
 opt.expandtab = true
 opt.smartindent = true
 opt.breakindent = true
-
+opt.laststatus = 3 -- 永远显示 statusline，与 dropbar 的 winbar 互不干扰
 opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = true
