@@ -36,7 +36,13 @@ return {
 	{
 		"nvim-mini/mini.jump",
 		version = false,
-		event = "VeryLazy",
+		keys = {
+			{ "f", mode = { "n", "v" }, desc = "mini.jump forward" },
+			{ "F", mode = { "n", "v" }, desc = "mini.jump backward" },
+			{ "t", mode = { "n", "v" }, desc = "mini.jump forward till" },
+			{ "T", mode = { "n", "v" }, desc = "mini.jump backward till" },
+			{ ";", mode = { "n", "v" }, desc = "mini.jump repeat" },
+		},
 		config = function()
 			require("mini.jump").setup({
 				mappings = {
@@ -52,7 +58,9 @@ return {
 	{
 		"nvim-mini/mini.jump2d",
 		version = false,
-		event = "VeryLazy",
+		keys = {
+			{ "<CR>", mode = { "n", "v" }, desc = "mini.jump2d" },
+		},
 		config = function()
 			require("mini.jump2d").setup({
 				-- 用 <CR> 覆盖 normal 模式默认的「跳到行首」行为以触发 jump2d
@@ -140,7 +148,6 @@ return {
 				"vimdoc",
 				"yaml",
 				"dart",
-			
 			}
 
 			require("nvim-treesitter").setup({
@@ -177,7 +184,6 @@ return {
 					"vimdoc",
 					"yaml",
 					"dart",
-				
 				},
 				callback = function(args)
 					pcall(vim.treesitter.start, args.buf)
