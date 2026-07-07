@@ -64,3 +64,5 @@ vim.diagnostic.config({
 		source = true,
 	},
 })
+
+vim.lsp.inlay_hint.enable(true)

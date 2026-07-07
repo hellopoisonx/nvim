@@ -9,7 +9,7 @@ require("core.keymaps")
 require("core.autocmds")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath .. "/lua/lazy/init.lua") then
 	vim.fn.system({
 		"git",
 		"clone",

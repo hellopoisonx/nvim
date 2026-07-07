@@ -18,8 +18,8 @@
   - LSP / 补全 / 格式化：`lsp.lua`、`completion.lua`、`formatter.lua`
   - 诊断 / lint：`diagnostics.lua`
   - Git：`git.lua`
-  - 编辑体验：`editing.lua`
-  - UI：`ui.lua`
+  - 编辑体验：`editor.lua`、`editing.lua`、`todo.lua`
+  - UI：`ui.lua`、`snacks.lua`、`statusline.lua`
   - 任务：`tasks.lua`
   - Session：`session.lua`
 - 修改快捷键后必须同步更新 `README.md`。
@@ -36,15 +36,17 @@ nvim --headless "+lua print('config loaded')" +qa
 - `folke/lazy.nvim`
 - `catppuccin/nvim`
 - `nvim-mini/mini.files`
-- `nvim-mini/mini.jump`
-- `nvim-mini/mini.jump2d`
+- `folke/flash.nvim`
 - `nvim-telescope/telescope.nvim`
 - `neovim/nvim-lspconfig`
 - `hrsh7th/nvim-cmp`
 - `mhartington/formatter.nvim`
 - `mfussenegger/nvim-lint`
 - `folke/trouble.nvim`
+- `folke/snacks.nvim`
+- `folke/todo-comments.nvim`
 - `lewis6991/gitsigns.nvim`
 - `stevearc/overseer.nvim`
 - `rmagatti/auto-session`
+- `nvim-mini/mini.statusline`
 - `folke/which-key.nvim`

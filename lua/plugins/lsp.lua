@@ -160,25 +160,4 @@ return {
 			vim.lsp.enable(servers)
 		end,
 	},
-	{
-		"jinzhongjia/LspUI.nvim",
-		branch = "main",
-		event = "LspAttach",
-		dependencies = { "nvim-treesitter/nvim-treesitter", "MeanderingProgrammer/render-markdown.nvim" },
-		config = function()
-			require("LspUI").setup({
-				rename = { enable = true, command_enable = true, border = "rounded" },
-				code_action = { enable = true, command_enable = true, border = "rounded" },
-				hover = { enable = true, command_enable = true, border = "rounded" },
-				diagnostic = { enable = true, command_enable = true, border = "rounded", show_source = true },
-				definition = { enable = true, command_enable = true },
-				implementation = { enable = true, command_enable = true },
-				type_definition = { enable = true, command_enable = true },
-				declaration = { enable = true, command_enable = true },
-				reference = { enable = true, command_enable = true },
-				lightbulb = { enable = true, icon = "💡" },
-				inlay_hint = { enable = true, command_enable = true },
-			})
-		end,
-	},
 }

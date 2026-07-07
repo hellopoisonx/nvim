@@ -16,24 +16,25 @@
 ### 主要插件索引
 
 - [mini.files](https://github.com/nvim-mini/mini.files)：浮动文件浏览器
-- [mini.jump](https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-jump.md)：扩展 `f` / `F` / `t` / `T` 在多行工作
-- [mini.jump2d](https://github.com/nvim-mini/mini.nvim/blob/main/readmes/mini-jump2d.md)：可见行内的迭代标签跳转
+- [flash.nvim](https://github.com/folke/flash.nvim)：快速跳转（`s`/`S` 跨行标签，增强 `f`/`F`/`t`/`T`）
 - [floaterm](https://github.com/nvzone/floaterm)：浮动终端；进入浮动终端后预留 `Ctrl+l/a/e/k` 给 shell 使用
 - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)：LSP 配置
 - [formatter.nvim](https://github.com/mhartington/formatter.nvim)：格式化
 - [Comment.nvim](https://github.com/numtostr/comment.nvim)：注释
 - [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim)：Markdown 渲染
 - [markdown-preview.nvim](https://github.com/selimacerbas/markdown-preview.nvim)：Markdown 浏览器预览（含 Mermaid 支持）
-- [LspUI.nvim](https://github.com/jinzhongjia/lspui.nvim)：LSP UI 增强
 - [barbar.nvim](https://github.com/romgrk/barbar.nvim)：Buffer 标签栏
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)：搜索 / Picker
 - [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)：Git hunk / blame
 - [nvim-lint](https://github.com/mfussenegger/nvim-lint)：异步 lint
 - [trouble.nvim](https://github.com/folke/trouble.nvim)：诊断 / quickfix / LSP 列表
+- [snacks.nvim](https://github.com/folke/snacks.nvim)：大文件保护 (bigfile) / 作用域高亮 (dim) / 快速渲染 (quickfile) / 作用域文本对象 (scope) / LSP 文件重命名 (rename) / 平滑滚动 (scroll) / 图片查看 (image) / Zen 专注模式 (zen)
+- [todo-comments.nvim](https://github.com/folke/todo-comments.nvim)：高亮 TODO / FIX / NOTE 等注释标记
 - [nvim-autopairs](https://github.com/windwp/nvim-autopairs)：自动括号
 - [overseer.nvim](https://github.com/stevearc/overseer.nvim)：任务运行器
 - [nvim-surround](https://github.com/kylechui/nvim-surround)：Surround 操作
 - [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)：缩进线
+- [mini.statusline](https://github.com/nvim-mini/mini.statusline)：轻量状态栏
 - [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim)：winbar 面包屑（LSP / Treesitter / Path 自动 fallback）
 - [auto-session](https://github.com/rmagatti/auto-session)：Session 管理
 - [pi.nvim](https://github.com/pablopunk/pi.nvim)：Neovim 内通过 pi CLI 与 AI 交互
@@ -55,21 +56,24 @@
 init.lua
 lua/
   core/
-    options.lua      # 基础选项、诊断显示配置
+    options.lua      # 基础选项、诊断显示配置、inlay_hint 启用
     keymaps.lua      # 全局快捷键
     autocmds.lua     # 自动命令、LSP 快捷键、自动保存
   plugins/
     completion.lua   # nvim-cmp / LuaSnip 补全
     diagnostics.lua  # nvim-lint / trouble.nvim
     editing.lua      # autopairs / surround / indent guides
-    editor.lua       # 文件浏览器、注释、终端、buffer、treesitter、markdown、跳转
+    editor.lua       # 文件浏览器、flash 跳转、注释、终端、buffer、treesitter、markdown
     formatter.lua    # formatter.nvim / mason-tool-installer
     git.lua          # gitsigns.nvim
     go.lua           # go.nvim (Go 开发)
-    lsp.lua          # mason / lspconfig / LspUI
+    lsp.lua          # mason / lspconfig
     session.lua      # auto-session
+    snacks.lua       # snacks.nvim (bigfile/dim/quickfile/scope/rename/scroll)
+    statusline.lua   # mini.statusline
     tasks.lua        # overseer.nvim
     telescope.lua    # Telescope 搜索
+    todo.lua         # todo-comments.nvim
     ui.lua           # 主题、通知、Noice UI、which-key
     pi.lua           # pi.nvim AI 交互
 lazy-lock.json       # lazy.nvim 插件锁定文件
@@ -83,10 +87,7 @@ lazy-lock.json       # lazy.nvim 插件锁定文件
 - 主题：`catppuccin/nvim`，默认 `catppuccin-mocha`
 - UI：`noice.nvim`、`nvim-notify`、`barbar.nvim`、`which-key.nvim`
 
-### LSP / 补全 / 格式化
-
-- LSP：`nvim-lspconfig`、`mason.nvim`、`mason-lspconfig.nvim`
-- LSP UI：`jinzhongjia/LspUI.nvim`
+- LSP：`nvim-lspconfig`、`mason.nvim`、`mason-lspconfig.nvim`，LSP UI 使用 vim.lsp.buf.* 原生 + trouble.nvim 诊断面板
 - Go 开发：[`ray-x/go.nvim`](https://github.com/ray-x/go.nvim)（gopls 管理、测试、格式化、代码生成、Tag 管理等）
 - 补全：`nvim-cmp`、`cmp-nvim-lsp`、`cmp-buffer`、`cmp-path`
 - Snippet：`LuaSnip`、`friendly-snippets`
@@ -111,7 +112,6 @@ lazy-lock.json       # lazy.nvim 插件锁定文件
 ### 开发闭环与编辑体验插件
 
 已配置：
-
 - Go：`ray-x/go.nvim`（gopls、测试、覆盖率、代码生成、Tag、文档、DAP 调试）
 - Git：`lewis6991/gitsigns.nvim`
 - Lint：`mfussenegger/nvim-lint`
@@ -122,7 +122,10 @@ lazy-lock.json       # lazy.nvim 插件锁定文件
 - 缩进线：`lukas-reineke/indent-blankline.nvim`
 - Session 管理：`rmagatti/auto-session`
 - 快捷键提示：`folke/which-key.nvim`
-- 跳转：`nvim-mini/mini.jump`（多行 `f`/`F`/`t`/`T`）、`nvim-mini/mini.jump2d`（可见区迭代跳转）
+- 跳转：`folke/flash.nvim`（跨行标签跳转 + 增强 `f`/`F`/`t`/`T`）
+- 状态栏：`nvim-mini/mini.statusline`
+- 大文件保护 / 作用域 / 平滑滚动 / 文件重命名 / 图片查看 / Zen 专注模式：`folke/snacks.nvim`
+- 注释高亮：`folke/todo-comments.nvim`
 
 `mason-tool-installer` 同时补充安装常用 lint 工具：
 
@@ -181,7 +184,9 @@ Leader 键：`<Space>`
 | `<leader>fs` | 搜索光标下单词         |
 | `<leader>fb` | 查找 Buffer            |
 | `<leader>fh` | 查找帮助               |
-| `<CR>`       | mini.jump2d 跨行跳转（覆盖 normal <CR> 默认跳到行首） |
+| `s`          | Flash 跨行标签跳转 (向前) |
+| `S`          | Flash Treesitter 作用域跳转 |
+| `f` / `F` / `t` / `T` | Flash 增强单行跳转（带标签提示） |
 
 ### 终端
 
@@ -205,10 +210,23 @@ Leader 键：`<Space>`
 | `<leader>e`  | 打开当前行诊断浮窗     |
 | `<leader>q`  | 诊断写入 location list |
 | `<leader>cl` | 手动 lint 当前文件     |
+| `<leader>rn` | Snacks LSP 文件重命名   |
 | `<leader>;`  | dropbar：Pick 模式选择面包屑符号 |
 | `[;`         | dropbar：跳到当前 context 起点 |
 | `];`         | dropbar：选下一个 context |
 LSP 位置类跳转使用 Telescope picker，选择条目并按 `<CR>` 即可跳转；如果 Telescope 不可用，会自动回退到 Neovim 内置 LSP 跳转。
+
+### Snacks 增强功能
+
+| 快捷键       | 功能                       |
+| ------------ | -------------------------- |
+| `ii`         | 选中当前缩进作用域（内部） |
+| `ai`         | 选中当前缩进作用域（完整） |
+| `[i`         | 跳转到作用域顶部           |
+| `]i`         | 跳转到作用域底部           |
+| `<leader>zh` | 图片悬浮预览 (Snacks image)|
+| `<leader>zz` | Zen 专注模式               |
+| `<leader>zZ` | Zoom 全屏                  |
 
 ### Trouble 诊断面板
 

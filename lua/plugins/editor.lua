@@ -34,55 +34,15 @@ return {
 		end,
 	},
 	{
-		"nvim-mini/mini.jump",
-		version = false,
+		"folke/flash.nvim",
+		event = "VeryLazy",
 		keys = {
-			{ "f", mode = { "n", "v" }, desc = "mini.jump forward" },
-			{ "F", mode = { "n", "v" }, desc = "mini.jump backward" },
-			{ "t", mode = { "n", "v" }, desc = "mini.jump forward till" },
-			{ "T", mode = { "n", "v" }, desc = "mini.jump backward till" },
-			{ ";", mode = { "n", "v" }, desc = "mini.jump repeat" },
+			{ "s", mode = { "n", "x", "o" }, desc = "Flash 跳转" },
+			{ "S", mode = { "n", "x", "o" }, desc = "Flash Treesitter 跳转" },
+			{ "r", mode = "o", desc = "Flash 远程" },
+			{ "R", mode = { "o", "x" }, desc = "Flash Treesitter 远程" },
 		},
-		config = function()
-			require("mini.jump").setup({
-				mappings = {
-					forward = "f",
-					backward = "F",
-					forward_till = "t",
-					backward_till = "T",
-					repeat_jump = ";",
-				},
-			})
-		end,
-	},
-	{
-		"nvim-mini/mini.jump2d",
-		version = false,
-		keys = {
-			{ "<CR>", mode = { "n", "v" }, desc = "mini.jump2d" },
-		},
-		config = function()
-			require("mini.jump2d").setup({
-				-- 用 <CR> 覆盖 normal 模式默认的「跳到行首」行为以触发 jump2d
-				mappings = {
-					start_jumping = "<CR>",
-				},
-				silent = true,
-			})
-			-- 覆盖默认高亮，避免 catppuccin 主题下与背景色同色导致标签不可见
-			-- Spot: 显著色块；Unique: 边框强调；Ahead: 较暗的预提示
-			local set_hl = vim.api.nvim_set_hl
-			local function refresh_jump2d_hl()
-				set_hl(0, "MiniJump2dSpot", { fg = "#1e1e2e", bg = "#fab387", bold = true })
-				set_hl(0, "MiniJump2dSpotUnique", { fg = "#1e1e2e", bg = "#94e2d5", bold = true })
-				set_hl(0, "MiniJump2dSpotAhead", { fg = "#a6adc8", bg = "#313244", bold = true })
-			end
-			refresh_jump2d_hl()
-			vim.api.nvim_create_autocmd("ColorScheme", {
-				group = vim.api.nvim_create_augroup("MiniJump2dHighlight", { clear = true }),
-				callback = refresh_jump2d_hl,
-			})
-		end,
+		opts = {},
 	},
 	{
 		"numToStr/Comment.nvim",

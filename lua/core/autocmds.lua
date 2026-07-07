@@ -100,17 +100,9 @@ autocmd("FileType", {
 autocmd("LspAttach", {
 	group = augroup("LspKeymaps", { clear = true }),
 	callback = function(event)
-		local map = function(mode, lhs, rhs, desc)
-			vim.keymap.set(mode, lhs, rhs, { buffer = event.buf, silent = true, desc = desc })
-		end
 
-		local function lspui_or_builtin(command, fallback)
-			return function()
-				local ok = pcall(vim.cmd, "LspUI " .. command)
-				if not ok then
-					fallback()
-				end
-			end
+		local map_buf = function(lhs, rhs, desc)
+			vim.keymap.set("n", lhs, rhs, { buffer = event.buf, silent = true, desc = desc })
 		end
 
 		local function telescope_or_builtin(picker, fallback, picker_opts)
@@ -131,22 +123,21 @@ autocmd("LspAttach", {
 			end
 		end
 
-		map("n", "K", lspui_or_builtin("hover", vim.lsp.buf.hover), "悬浮文档")
-		map("n", "gd", telescope_or_builtin("lsp_definitions", vim.lsp.buf.definition), "跳转定义")
-		map("n", "gi", telescope_or_builtin("lsp_implementations", vim.lsp.buf.implementation), "跳转实现")
+		map_buf("K", vim.lsp.buf.hover, "悬浮文档")
+		map_buf("gd", telescope_or_builtin("lsp_definitions", vim.lsp.buf.definition), "跳转定义")
+		map_buf("gi", telescope_or_builtin("lsp_implementations", vim.lsp.buf.implementation), "跳转实现")
 		if vim.bo[event.buf].filetype == "go" then
-			map("n", "gI", telescope_or_builtin("lsp_implementations", vim.lsp.buf.implementation), "跳转接口实现")
+			map_buf("gI", telescope_or_builtin("lsp_implementations", vim.lsp.buf.implementation), "跳转接口实现")
 		else
-			map("n", "gI", telescope_or_builtin("lsp_type_definitions", vim.lsp.buf.type_definition), "跳转类型定义")
+			map_buf("gI", telescope_or_builtin("lsp_type_definitions", vim.lsp.buf.type_definition), "跳转类型定义")
 		end
-		map(
-			"n",
+		map_buf(
 			"gr",
 			telescope_or_builtin("lsp_references", vim.lsp.buf.references, { include_declaration = false }),
 			"查找引用"
 		)
-		map("n", "<leader>cr", lspui_or_builtin("rename", vim.lsp.buf.rename), "符号重命名")
-		map("n", "<leader>ca", lspui_or_builtin("code_action", vim.lsp.buf.code_action), "代码操作")
+		map_buf("<leader>cr", vim.lsp.buf.rename, "符号重命名")
+		map_buf("<leader>ca", vim.lsp.buf.code_action, "代码操作")
 	end,
 })
 
