@@ -4,7 +4,9 @@
 
 ## 主要信息
 
+- Nvim version: `0.12.4`
 - 配置总览、快捷键、插件说明请以 `README.md` 为准。
+- 官方文档: `https://neovim.io/doc/`
 - 入口文件：`init.lua`
 - 插件管理：`lazy.nvim`
 - 插件规格目录：`lua/plugins/`

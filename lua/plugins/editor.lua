@@ -37,12 +37,49 @@ return {
 		"folke/flash.nvim",
 		event = "VeryLazy",
 		keys = {
-			{ "s", mode = { "n", "x", "o" }, desc = "Flash 跳转" },
-			{ "S", mode = { "n", "x", "o" }, desc = "Flash Treesitter 跳转" },
-			{ "r", mode = "o", desc = "Flash 远程" },
-			{ "R", mode = { "o", "x" }, desc = "Flash Treesitter 远程" },
+			{
+				"s",
+				mode = { "n", "x", "o" },
+				function() require("flash").jump() end,
+				desc = "Flash 跳转",
+			},
+			{
+				"S",
+				mode = { "n", "x", "o" },
+				function() require("flash").treesitter() end,
+				desc = "Flash Treesitter 跳转",
+			},
+			{
+				"r",
+				mode = "o",
+				function() require("flash").remote() end,
+				desc = "Flash 远程操作",
+			},
+			{
+				"R",
+				mode = { "o", "x" },
+				function() require("flash").treesitter_search() end,
+				desc = "Flash Treesitter 搜索",
+			},
+			{
+				"<c-s>",
+				mode = { "c" },
+				function() require("flash").toggle() end,
+				desc = "切换 Flash 搜索标签",
+			},
 		},
-		opts = {},
+		opts = {
+			jump = {
+				-- 只有一个匹配时自动跳转，无需按确认键
+				autojump = true,
+			},
+			modes = {
+				-- f/F/t/T 增强：多行匹配时显示跳转标签
+				char = {
+					jump_labels = true,
+				},
+			},
+		},
 	},
 	{
 		"numToStr/Comment.nvim",

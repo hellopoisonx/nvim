@@ -184,9 +184,12 @@ Leader 键：`<Space>`
 | `<leader>fs` | 搜索光标下单词         |
 | `<leader>fb` | 查找 Buffer            |
 | `<leader>fh` | 查找帮助               |
-| `s`          | Flash 跨行标签跳转 (向前) |
-| `S`          | Flash Treesitter 作用域跳转 |
-| `f` / `F` / `t` / `T` | Flash 增强单行跳转（带标签提示） |
+| `s`          | Flash 跨行标签跳转           |
+| `S`          | Flash Treesitter 作用域跳转  |
+| `r`          | Flash 远程操作 (operator-pending) |
+| `R`          | Flash Treesitter 搜索 (operator-pending) |
+| `<c-s>`      | 搜索时切换 Flash 标签 (cmdline) |
+| `f` / `F` / `t` / `T` | Flash 增强单行跳转（多行时显示标签） |
 
 ### 终端
 
